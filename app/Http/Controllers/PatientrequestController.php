@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\RequestCollection;
-use App\Http\Resources\RequestResource;
-use App\Models\Request as Requests;
+use App\Http\Resources\PatientrequestCollection;
+use App\Http\Resources\PatientrequestResource;
+use App\Models\Patientrequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class RequestController extends Controller
+class PatientrequestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // return response()->json(Requests::all());
-
-        $requests = Requests::orderBy('id', 'desc')->get();
+        $requests = Patientrequest::orderBy('id', 'desc')->get();
         // return RequestResource::collection($requests);
-        return new RequestCollection($requests);
+        return new PatientrequestCollection($requests);
     }
 
     /**
@@ -42,22 +40,23 @@ class RequestController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $requestModel = Requests::create($request->all());
-        return response()->json($requestModel, 201);
+        $requestModel = Patientrequest::create($request->all());
+        // return response()->json($requestModel, 201);
+        return new PatientrequestResource($requestModel);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Requests $request)
+    public function show(Patientrequest $patientrequest)
     {
-        return new RequestResource($request);
+        return new PatientrequestResource($patientrequest);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Requests $requestModel)
+    public function update(Request $request, Patientrequest $patientrequest)
     {
         $validator = Validator::make($request->all(), [
             'created_on' => 'required|date',
@@ -75,20 +74,20 @@ class RequestController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $requestModel->update($request->only([
+        $patientrequest->update($request->only([
             'created_on','location','service' ,'status' ,'priority' ,'department' ,'requested_by' ,'assigned_to'
         ]));
 
-        dd($requestModel);
-        return new RequestResource($requestModel);
+        // dd($patientrequest);
+        return new PatientrequestResource($patientrequest);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Requests $request)
+    public function destroy(Patientrequest $patientrequest)
     {
-        $request->delete();
+        $patientrequest->delete();
         return response()->json(['message' => 'Item has been deleted successfully'], 200);
     }
 }
