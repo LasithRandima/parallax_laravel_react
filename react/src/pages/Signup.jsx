@@ -1,10 +1,10 @@
 
 import { createRef, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useStateContext } from '../contexts/ContextProvider';
-import axiosApiClient from '../../axios-api-client';
+import axiosClient from '../axios-client';
+
 
 function Signup() {
     const nameRef = createRef()
@@ -26,19 +26,20 @@ function Signup() {
             password_confirmation: passwordConfirmationRef.current.value,
           }
 
-        // console.log(payload);
+        console.log(payload);
 
-        axiosApiClient.post('/signup', payload)
+        axiosClient.post('/signup', payload)
         .then(({data}) => {
           setUser(data.user)
           setToken(data.token);
         })
         .catch(err => {
+          console.log(err)
           const response = err.response;
           if (response && response.status === 422) { //422 - validation errors status
             setErrors(response.data.errors)
           }
-        })
+        }) 
     }
 
 
@@ -58,6 +59,12 @@ function Signup() {
                       <i className="fas fa-cubes fa-2x me-3" style={{ color: '#ff6219' }}></i>
                       <span className="h1 fw-bold mb-0">E-Hospital</span>
                     </div>
+                    {errors && <div className="alert alert-danger" role="alert">
+                      {Object.keys(errors).map(key => (
+                        <p key={key}>{errors[key][0]}</p>
+                      ))}
+                    </div>
+                    }
                     <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Sign Up</h5>
                     <div data-mdb-input-init className="form-outline mb-4">
                       <input ref={nameRef} type="text" id="name" className="form-control form-control-lg" />
@@ -76,7 +83,7 @@ function Signup() {
                       <label className="form-label" htmlFor="repwd">Confirm Password</label>
                     </div>
                     <div className="pt-1 mb-4">
-                      <button className="btn btn-dark btn-lg btn-block" type="submit">Signup</button>
+                      <button className="btn btn-dark btn-lg btn-block">Signup</button>
                     </div>
                   
                     <p className="mb-2 pb-lg-2" style={{ color: '#393f81' }}>

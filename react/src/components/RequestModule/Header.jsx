@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import axiosClient from '../../axios-client';
+import { useStateContext } from '../../contexts/ContextProvider';
+
+
 
 const RequestSchema = Yup.object().shape({
     floor: Yup.string().required('Required'),
@@ -19,6 +22,7 @@ const RequestSchema = Yup.object().shape({
   });
 
 const Header = () => {
+    const {user, token} = useStateContext();
 
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState(null);
@@ -29,11 +33,37 @@ const Header = () => {
         setIsLoading(true);
         setServerError(null);
         setSuccessMessage(null);
+
+        const formatDate = (date) => {
+            const d = new Date(date);
+            let month = '' + (d.getMonth() + 1);
+            let day = '' + d.getDate();
+            const year = d.getFullYear();
+      
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+      
+            return [year, month, day].join('-');
+          };
+      
+
+        const payload = {
+            created_on: formatDate(new Date()),
+            location: `${values.floor}${values.room}${values.block}`,
+            service: values.service,
+            status: 'NEW', // Setting default status
+            priority: values.priority,
+            department: values.department,
+            requested_by: 'Lasith', // Using user's name
+            assigned_to: values.guestName,
+          };
+
+        console.log(payload);
+
     
         try {
-          const response = await axios.post(
-            'http://127.0.0.1:8000/api/patientrequests',
-            values
+          const response = await  axiosClient.post('/patientrequests',
+            payload
           );
           console.log('Request created:', response.data);
           setSuccessMessage('Request submitted successfully!');
@@ -43,15 +73,12 @@ const Header = () => {
         } catch (error) {
           console.error('Error creating request:', error);
           if (error.response) {
-            // Client received an error response (e.g., 4xx, 5xx)
             setServerError(
               error.response.data.message || 'Failed to submit request'
             );
           } else if (error.request) {
-            // Request was made but no response received
             setServerError('No response from server');
           } else {
-            // Something happened in setting up the request that triggered an Error
             setServerError('Failed to create request');
           }
         } finally {
@@ -222,9 +249,9 @@ const Header = () => {
                       <label htmlFor="priority" className="form-label">Priority</label>
                       <Field as="select" className="form-select" id="priority" name="priority">
                         <option value="">Select Priority</option>
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
+                        <option value="HIGH">High</option>
+                        <option value="MEDIUM">Medium</option>
+                        <option value="LOW">Low</option>
                       </Field>
                       <ErrorMessage name="priority" component="div" className="text-danger" />
                     </div>
