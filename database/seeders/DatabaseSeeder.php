@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RequestSeeder::class);
         $this->call(PatientrequestSeeder::class);
+        \App\Models\User::factory(10)->create();
+
     }
 }

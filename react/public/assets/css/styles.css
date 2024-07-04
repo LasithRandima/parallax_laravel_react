@@ -1,0 +1,26 @@
+@media (min-width: 768px) {
+  .nav-item i {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .nav-item i {
+    display: block;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .navbar-nav {
+    min-height: 170px;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 992px) {
+
+  .requestbox{
+    margin: 25px auto !important;
+    
+  }
+}
+
