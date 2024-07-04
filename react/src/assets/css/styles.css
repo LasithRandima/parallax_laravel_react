@@ -1,3 +1,11 @@
+.imagebox-wrapper {
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0 1rem 1rem 0;
+    height: 100%;
+    width: auto;
+  }
+
 @media (min-width: 768px) {
   .nav-item i {
     display: none;
@@ -23,4 +31,6 @@
     
   }
 }
+
+
 

@@ -15,6 +15,7 @@ const GuestLayout = () => {
     <div>
         <Outlet/>
     </div>
+        
   )
 }
 
