@@ -1,9 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useEffect } from 'react';
+import { Link, Navigate, Outlet } from 'react-router-dom';
+import { useStateContext } from '../contexts/ContextProvider';
+import axiosClient from '../axios-client';
+
 
 const Navbar = () => {
+    const {user, token, setUser, setToken} = useStateContext();
+
+    useEffect(() => {
+        axiosClient.get('/user')
+          .then(({data}) => {
+             setUser(data)
+          })
+      }, [])
+
+      const onLogout = (e) => {
+        e.preventDefault();
+
+        axiosClient.post('/logout')
+        .then(() => {
+            setUser({})
+            setToken(null)
+        })
+    }
+
+    const capitalizeFirstLetter = (string) => {
+        if (!string) return '';
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
   return (
     <nav className="navbar navbar-expand-md text-white py-3" style={{ background: '#830823', height: '60px', width: '100%' }}>
       <div className="container" style={{ width: '100vw', paddingLeft: '0px', paddingRight: '0px' }}>
@@ -59,7 +84,7 @@ const Navbar = () => {
                     </div>
                     <div className="fw-bold">
                       <div className="text-truncate"><span>Hi there!</span></div>
-                      <p className="small text-gray-500 mb-0">Emily Fowler - 58m</p>
+                      <p className="small text-gray-500 mb-0">{user.name} - 58m</p>
                     </div>
                   </Link>
                   <Link className="dropdown-item text-center small text-gray-500" to="#">Show All Alerts</Link>
@@ -91,7 +116,7 @@ const Navbar = () => {
             <li className="nav-item d-sm-flex d-md-flex d-lg-flex justify-content-sm-center align-items-sm-center align-items-md-center align-items-lg-center dropdown no-arrow">
               <div className="nav-item dropdown no-arrow">
                 <Link className="d-md-flex d-lg-flex justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center nav-link" aria-expanded="false" data-bs-toggle="dropdown" to="#" style={{ height: '40px' }}>
-                  <span className="text-white d-none d-lg-inline me-2 text-gray-600 small" style={{ textAlign: 'right' }}>welcome<br />Admin</span>
+                  <span className="text-white d-none d-lg-inline me-2 text-gray-600 small" style={{ textAlign: 'right' }}>Welcome<br />{capitalizeFirstLetter(user.name)}</span>
                   <img className="border rounded-circle img-profile" src="../assets/img/avatars/avatar1.jpeg" alt="Avatar" style={{ height: '40px', width: '40px' }} />
                 </Link>
                 <div className="dropdown-menu shadow dropdown-menu-end animated--grow-in">
@@ -99,7 +124,8 @@ const Navbar = () => {
                   <Link className="dropdown-item" to="#"><i className="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</Link>
                   <Link className="dropdown-item" to="#"><i className="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</Link>
                   <div className="dropdown-divider"></div>
-                  <Link className="dropdown-item" to="#"><i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</Link>
+                  {/* <a href="#" onClick={onLogout} className="btn btn-primary">Logout</a> */}
+                  <Link onClick={onLogout} className="dropdown-item" to="#"><i className="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</Link>
                 </div>
               </div>
             </li>

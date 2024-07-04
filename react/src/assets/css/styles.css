@@ -6,6 +6,11 @@
     width: auto;
   }
 
+.tablewrapper{
+    width: 100%;
+    background-color: #fff;
+}
+
 @media (min-width: 768px) {
   .nav-item i {
     display: none;
@@ -31,6 +36,8 @@
     
   }
 }
+
+
 
 
 
