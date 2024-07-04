@@ -51,10 +51,10 @@ const Header = () => {
             created_on: formatDate(new Date()),
             location: `${values.floor}${values.room}${values.block}`,
             service: values.service,
-            status: 'NEW', // Setting default status
+            status: 'NEW', // default status
             priority: values.priority,
             department: values.department,
-            requested_by: 'Lasith', // Using user's name
+            requested_by: 'Lasith', // use current logged user name
             assigned_to: values.guestName,
           };
 
@@ -68,8 +68,6 @@ const Header = () => {
           console.log('Request created:', response.data);
           setSuccessMessage('Request submitted successfully!');
           resetForm();
-          // Close the modal (if needed)
-          // ...
         } catch (error) {
           console.error('Error creating request:', error);
           if (error.response) {
@@ -260,16 +258,21 @@ const Header = () => {
                     <label htmlFor="uploadFile" className="form-label">Upload File</label>
                     <input className="form-control" type="file" id="uploadFile" />
                   </div>
+
                   {serverError && (
-                    <div className="alert alert-danger" role="alert">
+                    <div className="alert alert-danger alert-dismissible fade show" role="alert">
                       {serverError}
+                      <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                   )}
                   {successMessage && (
-                    <div className="alert alert-success" role="alert">
+                    <div className="alert alert-success alert-dismissible fade show" role="alert">
                       {successMessage}
+                      <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                   )}
+
+                  
                 </div>
                 <div className="modal-footer">
                 <button type="button" className="btn btn-secondary text-danger" data-bs-dismiss="modal" style={{ marginLeft: '26px', background: 'rgba(131, 8, 35, 0.08)', color: '#830823'}}>Cancel</button>
