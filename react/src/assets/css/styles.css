@@ -21,7 +21,44 @@
     background:#C19C27 !important;
     color: #fff;
     font-weight: 400;
+    padding: 12px 0;
 }
+
+/* Pagination */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+.page-item {
+    margin: 0 5px;
+  }
+  
+.page-item .page-link {
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    padding: 8px 16px;
+    border-radius: 15%;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+.page-item.active .page-link {
+    background-color: #830823;
+    color: #fff;
+    border: 1px solid #830823;
+  }
+  
+.page-link:hover {
+    background-color: #e9ecef;
+    color: #495057;
+    text-decoration: none;
+  }
+  
+.page-link:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
 
 @media (min-width: 768px) {
   .nav-item i {

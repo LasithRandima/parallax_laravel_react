@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import axiosClient from '../../axios-client';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import { useStateContext } from '../../contexts/ContextProvider';
 import EditModal from './EditModal';
 import ReadModal from './ReadModal';
@@ -84,6 +82,27 @@ const RequestDataTable = () => {
       [name]: value, 
     });
   };
+
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: 'selection'
+    }
+  ]);
+
+  // Handle date range change
+  const handleDateRangeChange = (ranges) => {
+    const { selection } = ranges;
+    setDateRange([selection]);
+
+    // Update filters state
+    setFilters({
+      ...filters,
+      fromDate: selection.startDate.toISOString().slice(0, 10), // Format start date
+      toDate: selection.endDate.toISOString().slice(0, 10),   // Format end date
+    });
+  };
   
     // Pagination logic
     const indexOfLastRequest = currentPage * requestsPerPage;
@@ -121,11 +140,11 @@ const RequestDataTable = () => {
             type="date"
             className="form-control"
             name="fromDate"
-            value={filters.fromDate}
+            value={filters.fromDate } 
             onChange={handleFilterChange}
           />
         </div>
-        <div className="col-12 col-md-2">
+        {/* <div className="col-12 col-md-2">
           <input
             type="date"
             className="form-control"
@@ -133,7 +152,7 @@ const RequestDataTable = () => {
             value={filters.toDate}
             onChange={handleFilterChange}
           />
-        </div>
+        </div> */}
 
         {/* Status Dropdown */}
         <div className="col-12 col-md-auto">
@@ -180,7 +199,7 @@ const RequestDataTable = () => {
         </div>
 
         {/* Filter and Download Buttons */}
-        <div className="col-12 col-md-2 d-flex justify-content-end align-items-end">
+        <div className="col-12 col-md-4 d-flex justify-content-end align-items-end">
           <button type="button" className="btn btn-dark me-2">
             <i className="fas fa-filter"></i>
           </button>
@@ -257,7 +276,7 @@ const RequestDataTable = () => {
                 data-bs-toggle="modal" data-bs-target="#readModal" 
                 onClick={() => handleReadAction(request.id)}
               >
-                <i className="fas fa-eye my-0 mx-0"></i>
+                <i className="fa fa-eye my-0 mx-0"></i>
               </button>
          
               <button
@@ -266,13 +285,13 @@ const RequestDataTable = () => {
                 data-bs-toggle="modal" data-bs-target="#editModal"
                 onClick={() => handleEditClick(request)} 
               >
-                <i className="fas fa-edit my-0 mx-0"></i>
+                <i className="fa fa-edit my-0 mx-0"></i>
               </button>
               <button 
                 className="btn btn-danger btn-sx py-0 px-1" 
                 onClick={ev => onDeleteClick(request)}
               >
-                <i className="fas fa-trash my-0 mx-0"></i>
+                <i className="fa fa-trash my-0 mx-0"></i>
               </button>
                 </div>
              
