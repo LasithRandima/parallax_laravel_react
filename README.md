@@ -4,6 +4,8 @@
 
 This is a full stack development project for a Request Management System built with Laravel 10+ for the backend and React (using Vite) for the frontend. The project aims to provide a system for managing service requests with various functionalities, including authentication, CRUD operations, and real-time updates.
 
+![E-Hospital Logo](public/E-Hospital.png)
+
 ## Table of Contents
 
 - [Features](#features)
