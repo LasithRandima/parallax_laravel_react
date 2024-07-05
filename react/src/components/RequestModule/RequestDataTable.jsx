@@ -4,10 +4,12 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useStateContext } from '../../contexts/ContextProvider';
 import EditModal from './EditModal';
+import ReadModal from './ReadModal';
 
 const RequestDataTable = ({updateItem, newItem}) => {
     const [editingRequest, setEditingRequest] = useState(null);
     const [editRequest, setEditRequest] = useState(null);
+    const [readRequest, setReadRequest] = useState(null);
     const [requests, setRequests] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [requestsPerPage] = useState(10);
@@ -54,6 +56,12 @@ const RequestDataTable = ({updateItem, newItem}) => {
     const handleEditModalClose = () => {
         setEditingRequest(null);
       };
+
+    const handleReadAction = (id) => {
+        console.log(id)
+        setReadRequest(id);
+        console.log(readRequest);
+    }
 
     const handleRequestUpdate = (updatedRequest) => {
         // Update the requests state with the updatedRequest
@@ -253,8 +261,10 @@ const RequestDataTable = ({updateItem, newItem}) => {
             <td>
                 <div className="inline-flex">
                 <button 
-                className="btn btn-light me-1 btn-xs py-0 px-1" 
-                onClick={() => handleAction('view', request.id)}
+                type="button" 
+                className="btn btn-light me-1 btn-xs py-0 px-1"
+                data-bs-toggle="modal" data-bs-target="#readModal" 
+                onClick={() => handleReadAction(request.id)}
               >
                 <i className="fas fa-eye my-0 mx-0"></i>
               </button>
@@ -299,13 +309,21 @@ const RequestDataTable = ({updateItem, newItem}) => {
     </div>
     </div>
 
-          {/* Modal Component  */}
+        {/* Edit Modal Component  */}
            {editingRequest && (
                 <EditModal
                 requestId={editingRequest.id}
                 requestData={editingRequest} 
                 onClose={handleEditModalClose} 
                 onUpdate={handleRequestUpdate}
+                />
+            )}
+        {/* End of Edit Modal */}
+
+                  {/* Read Modal Component  */}
+           {readRequest && (
+                <ReadModal
+                requestId={readRequest}
                 />
             )}
         {/* End of Edit Modal */}
