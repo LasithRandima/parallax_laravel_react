@@ -21,7 +21,7 @@ const RequestSchema = Yup.object().shape({
     priority: Yup.string().required('Required'),
   });
 
-const Header = () => {
+const Header = ({ onUpdate }) => {
     const {user, token} = useStateContext();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -70,6 +70,7 @@ const Header = () => {
           setSuccessMessage('Request submitted successfully!');
           setNewItem(true);
           resetForm();
+          onUpdate();
         } catch (error) {
           console.error('Error creating request:', error);
           if (error.response) {

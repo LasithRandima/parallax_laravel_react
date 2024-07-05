@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import axiosClient from '../../axios-client';
 import { useStateContext } from '../../contexts/ContextProvider';
 
-const EditModal = ({ requestId, requestData }) => {
+const EditModal = ({ requestId, requestData, onUpdate }) => {
     const {user} = useStateContext();
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState(null);
@@ -46,8 +46,7 @@ const EditModal = ({ requestId, requestData }) => {
 
     const handleSubmit = async (values, { resetForm }) => {
         
-        console.log(values.request);
-        console.log(values);
+        // console.log(values);
         setIsLoading(true);
         setServerError(null);
         setSuccessMessage(null);
@@ -76,7 +75,7 @@ const EditModal = ({ requestId, requestData }) => {
             assigned_to: values.guestName,
           };
 
-        console.log(payload);
+        // console.log(payload);
 
     
         try {
@@ -87,6 +86,7 @@ const EditModal = ({ requestId, requestData }) => {
           setUpdateItem(true);
           setSuccessMessage('Request submitted successfully!');
           resetForm();
+          onUpdate(); 
         } catch (error) {
           console.error('Error creating request:', error);
           if (error.response) {

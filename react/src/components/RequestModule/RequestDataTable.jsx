@@ -5,8 +5,9 @@ import * as Yup from 'yup';
 import { useStateContext } from '../../contexts/ContextProvider';
 import EditModal from './EditModal';
 import ReadModal from './ReadModal';
+import Header from './Header';
 
-const RequestDataTable = ({updateItem, newItem}) => {
+const RequestDataTable = () => {
     const [editingRequest, setEditingRequest] = useState(null);
     const [editRequest, setEditRequest] = useState(null);
     const [readRequest, setReadRequest] = useState(null);
@@ -29,7 +30,7 @@ const RequestDataTable = ({updateItem, newItem}) => {
         console.log('Editing request:', editingRequest);
       }
 
-    }, [filters, editRequest, newItem, updateItem]);
+    }, [filters, editRequest]);
 
     const getAllRequests = () => {
         setLoading(true)
@@ -63,13 +64,6 @@ const RequestDataTable = ({updateItem, newItem}) => {
         console.log(readRequest);
     }
 
-    const handleRequestUpdate = (updatedRequest) => {
-        // Update the requests state with the updatedRequest
-        setRequests(prevRequests => 
-          prevRequests.map(r => (r.id === updatedRequest.id ? updatedRequest : r))
-        );
-      };
-
 
 
     const onDeleteClick = user => {
@@ -98,13 +92,10 @@ const RequestDataTable = ({updateItem, newItem}) => {
   
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
   
-    // Function to handle CRUD operations (placeholder)
-    const handleAction = (action, requestId) => {
-      console.log(`Performing ${action} on request ID: ${requestId}`);
-      // Implement your CRUD logic here (e.g., open modals, make API calls)
-    };
   return (
-    <div className='container-fluid'>
+    <>
+        <Header onUpdate={getAllRequests} />
+        <div className='container-fluid'>
 <div className="row g-2 my-3 d-flex justify-between">
         {/* Search Bar */}
         <div className="col-12 col-md-3">
@@ -315,7 +306,7 @@ const RequestDataTable = ({updateItem, newItem}) => {
                 requestId={editingRequest.id}
                 requestData={editingRequest} 
                 onClose={handleEditModalClose} 
-                onUpdate={handleRequestUpdate}
+                onUpdate={getAllRequests}
                 />
             )}
         {/* End of Edit Modal */}
@@ -328,6 +319,8 @@ const RequestDataTable = ({updateItem, newItem}) => {
             )}
         {/* End of Edit Modal */}
   </div>
+    </>
+   
   )
 }
 
