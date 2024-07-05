@@ -122,10 +122,10 @@ After completing the installation steps, you can access the Laravel backend at `
     - Body: 
       ```json
       {
-        "name": "John Doe",
-        "email": "john@example.com",
-        "password": "password",
-        "password_confirmation": "password"
+        "name": "Jane Doe",
+        "email": "janedoe@example.com",
+        "password": "Password123!",
+        "password_confirmation": "Password123!"
       }
       ```
 
