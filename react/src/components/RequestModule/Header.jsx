@@ -54,7 +54,7 @@ const Header = () => {
             status: 'NEW', // default status
             priority: values.priority,
             department: values.department,
-            requested_by: 'Lasith', // use current logged user name
+            requested_by: user.name, // use current logged user name
             assigned_to: values.guestName,
           };
 
@@ -116,8 +116,8 @@ const Header = () => {
                 <div className="col" style={{ height: '172px' }}>
                   <div className="text-center d-flex flex-column justify-content-center align-items-center py-3" style={{ height: '172px' }}>
                     <div className="bs-icon-xl bs-icon-circle bs-icon-primary text-dark d-flex flex-column flex-shrink-0 justify-content-between align-items-center d-inline-block mb-2 bs-icon lg" style={{ background: '#CCF5BB', height: '114px', width: '114px' }}>
-                      <span style={{ fontSize: '40px', marginTop: '28px', lineHeight: '30px' }}><strong>10</strong></span>
-                      <p style={{ fontSize: '14px', lineHeight: '15px', marginTop: '0px', marginBottom: '17px' }}>New<br />Requests</p>
+                      <span style={{ fontSize: '40px', marginTop: '28px', lineHeight: '30px' }}><strong>05</strong></span>
+                      <p style={{ fontSize: '14px', lineHeight: '15px', marginTop: '0px', marginBottom: '17px' }}>Delayed<br />Requests</p>
                     </div>
                     <div className="px-3"></div>
                   </div>
@@ -125,8 +125,8 @@ const Header = () => {
                 <div className="col" style={{ height: '172px' }}>
                   <div className="text-center d-flex flex-column justify-content-center align-items-center py-3" style={{ height: '172px' }}>
                     <div className="bs-icon-xl bs-icon-circle bs-icon-primary text-dark d-flex flex-column flex-shrink-0 justify-content-between align-items-center d-inline-block mb-2 bs-icon lg" style={{ background: '#D0EEFF', height: '114px', width: '114px' }}>
-                      <span style={{ fontSize: '40px', marginTop: '28px', lineHeight: '30px' }}><strong>10</strong></span>
-                      <p style={{ fontSize: '14px', lineHeight: '15px', marginTop: '0px', marginBottom: '17px' }}>New<br />Requests</p>
+                      <span style={{ fontSize: '40px', marginTop: '28px', lineHeight: '30px' }}><strong>02</strong></span>
+                      <p style={{ fontSize: '14px', lineHeight: '15px', marginTop: '0px', marginBottom: '17px' }}>Escalated<br />Requests</p>
                     </div>
                     <div className="px-3"></div>
                   </div>
@@ -134,8 +134,8 @@ const Header = () => {
                 <div className="col" style={{ height: '172px' }}>
                   <div className="text-center d-flex flex-column justify-content-center align-items-center py-3" style={{ height: '172px' }}>
                     <div className="bs-icon-xl bs-icon-circle bs-icon-primary text-dark d-flex flex-column flex-shrink-0 justify-content-between align-items-center d-inline-block mb-2 bs-icon lg" style={{ background: '#D2D4FF', height: '114px', width: '114px', marginRight: '0px' }}>
-                      <span style={{ fontSize: '40px', marginTop: '28px', lineHeight: '30px' }}><strong>10</strong></span>
-                      <p style={{ fontSize: '14px', lineHeight: '15px', marginTop: '0px', marginBottom: '17px' }}>New<br />Requests</p>
+                      <span style={{ fontSize: '40px', marginTop: '28px', lineHeight: '30px' }}><strong>00</strong></span>
+                      <p style={{ fontSize: '14px', lineHeight: '15px', marginTop: '0px', marginBottom: '17px' }}>On Hold<br />Requests</p>
                     </div>
                     <div className="px-3"></div>
                   </div>
@@ -146,6 +146,7 @@ const Header = () => {
         </div>
 
 
+        {/* Modal Form */}
         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
             <div className="modal-content">
@@ -272,7 +273,7 @@ const Header = () => {
                     </div>
                   )}
 
-                  
+
                 </div>
                 <div className="modal-footer">
                 <button type="button" className="btn btn-secondary text-danger" data-bs-dismiss="modal" style={{ marginLeft: '26px', background: 'rgba(131, 8, 35, 0.08)', color: '#830823'}}>Cancel</button>

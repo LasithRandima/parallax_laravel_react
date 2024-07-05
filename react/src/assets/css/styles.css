@@ -11,6 +11,18 @@
     background-color: #fff;
 }
 
+.table-header-custom{
+    background-color: #C19C27 !important;
+    color: #fff;
+    font-weight: 300;
+}
+
+.table-header-custom th{
+    background:#C19C27 !important;
+    color: #fff;
+    font-weight: 400;
+}
+
 @media (min-width: 768px) {
   .nav-item i {
     display: none;
