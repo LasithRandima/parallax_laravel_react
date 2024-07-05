@@ -62,6 +62,11 @@ cd parallax_laravel_react
     ```bash
     php artisan migrate
     ```
+5. Run the database seeders:
+
+    ```bash
+    php artisan db:seed
+    ```
 
 5. Start the Laravel development server:
 

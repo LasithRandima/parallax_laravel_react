@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('patientrequests', function (Blueprint $table) {
-            $table->string('filepath');
+            $table->string('phoneNumber')->nullable();
+            $table->string('filepath')->nullable();
+
         });
     }
 
@@ -22,6 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('patientrequests', function (Blueprint $table) {
+            $table->dropColumn('phoneNumber');
             $table->dropColumn('filepath');
         });
     }
