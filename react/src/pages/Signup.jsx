@@ -39,13 +39,13 @@ function Signup() {
           if (response && response.status === 422) { //422 - validation errors status
             setErrors(response.data.errors)
           }
-        }) 
+        })
     }
 
 
   return (
     <section className="vh-100" style={{ backgroundColor: '#9A616D' }}>
-    <div className="container py-5 h-100">
+    <div className="container py-2 h-100">
       <div className="row d-flex justify-content-center align-items-center h-100">
 
 
@@ -66,28 +66,28 @@ function Signup() {
                       <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     }
-                    <h5 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Sign Up</h5>
-                    <div data-mdb-input-init className="form-outline mb-4">
+                    <h5 className="fw-normal mb-2 pb-3" style={{ letterSpacing: '1px' }}>Sign Up</h5>
+                    <div data-mdb-input-init className="form-outline mb-2">
                       <input ref={nameRef} type="text" id="name" className="form-control form-control-lg" />
                       <label className="form-label" htmlFor="name">Name</label>
                     </div>
-                    <div data-mdb-input-init className="form-outline mb-4">
+                    <div data-mdb-input-init className="form-outline mb-2">
                       <input ref={emailRef} type="email" id="regmail" className="form-control form-control-lg" />
                       <label className="form-label" htmlFor="regmail">Email address</label>
                     </div>
-                    <div data-mdb-input-init className="form-outline mb-4">
+                    <div data-mdb-input-init className="form-outline mb-2">
                       <input ref={passwordRef} type="password" id="pwd" className="form-control form-control-lg" />
                       <label className="form-label" htmlFor="pwd">Password</label>
                     </div>
-                    <div data-mdb-input-init className="form-outline mb-4">
+                    <div data-mdb-input-init className="form-outline mb-2">
                       <input ref={passwordConfirmationRef} type="password" id="repwd" className="form-control form-control-lg" />
                       <label className="form-label" htmlFor="repwd">Confirm Password</label>
                     </div>
                     <div className="pt-1 mb-4">
                       <button className="btn btn-dark btn-lg btn-block" type='submit'>Signup</button>
                     </div>
-                  
-                    <p className="mb-2 pb-lg-2" style={{ color: '#393f81' }}>
+
+                    <p className="mb-2 pb-lg-1" style={{ color: '#393f81' }}>
                       Already have an account? <Link to="/login" style={{ color: '#393f81' }}>Login here</Link>
                     </p>
 
