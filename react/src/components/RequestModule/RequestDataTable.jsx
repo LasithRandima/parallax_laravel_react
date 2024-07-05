@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { useStateContext } from '../../contexts/ContextProvider';
 import EditModal from './EditModal';
 
-const RequestDataTable = () => {
+const RequestDataTable = ({updateItem, newItem}) => {
     const [editingRequest, setEditingRequest] = useState(null);
     const [editRequest, setEditRequest] = useState(null);
     const [requests, setRequests] = useState([]);
@@ -27,7 +27,7 @@ const RequestDataTable = () => {
         console.log('Editing request:', editingRequest);
       }
 
-    }, [filters, editRequest]);
+    }, [filters, editRequest, newItem, updateItem]);
 
     const getAllRequests = () => {
         setLoading(true)

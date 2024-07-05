@@ -27,6 +27,7 @@ const Header = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+    const [newItem, setNewItem] = useState(false);
 
 
     const handleSubmit = async (values, { resetForm }) => {
@@ -67,6 +68,7 @@ const Header = () => {
           );
           console.log('Request created:', response.data);
           setSuccessMessage('Request submitted successfully!');
+          setNewItem(true);
           resetForm();
         } catch (error) {
           console.error('Error creating request:', error);

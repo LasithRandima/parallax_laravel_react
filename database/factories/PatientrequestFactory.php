@@ -16,9 +16,14 @@ class PatientrequestFactory extends Factory
      */
     public function definition(): array
     {
+        $floor = 'F' . $this->faker->numberBetween(1, 9);
+        $room = $this->faker->numberBetween(100, 130);
+        $block = 'Ward-' . chr($this->faker->numberBetween(65, 90)); // 'A' to 'Z'
+
+
         return [
             'created_on' => $this->faker->date(),
-            'location' => $this->faker->address(),
+            'location' => $floor . $room . $block,
             'service' => $this->faker->word(),
             'status' => $this->faker->randomElement(['NEW', 'IN_PROGRESS', 'ON_HOLD', 'REJECTED', 'CANCELLED']),
             'priority' => $this->faker->randomElement(['HIGH', 'MEDIUM', 'LOW']),

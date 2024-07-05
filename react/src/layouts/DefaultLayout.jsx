@@ -38,13 +38,6 @@ const DefaultLayout = () => {
   return (
     <div>
         <Navbar/>
-        <Header/>
-        <RequestDataTable/>
-
-
-
-
-
         <Outlet/>
     </div>
   )

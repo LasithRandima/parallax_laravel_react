@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -10,7 +10,7 @@ const EditModal = ({ requestId, requestData }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
-
+    const [updateItem, setUpdateItem] = useState(false);
 
     // Function to transform requestData to match Formik initialValues
     const transformRequestData = (data) => {
@@ -21,7 +21,7 @@ const EditModal = ({ requestId, requestData }) => {
         room: room || '',
         block: block || '',
         guestName: data.assigned_to || '',
-        phoneNumber: data.service || '', 
+        phoneNumber: '', 
         service: data.service || '',
         department: data.department || '',
         priority: data.priority || '',
@@ -81,10 +81,11 @@ const EditModal = ({ requestId, requestData }) => {
 
     
         try {
-          const response = await  axiosClient.patch(`/api/patientrequests/${requestId}`,
+          const response = await  axiosClient.patch(`/patientrequests/${requestId}`,
             payload
           );
           console.log('Request created:', response.data);
+          setUpdateItem(true);
           setSuccessMessage('Request submitted successfully!');
           resetForm();
         } catch (error) {
